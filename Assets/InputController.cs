@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
 
     // Level Raycasting
     Target target;
+    GameObject hovering_tile; // CHANGE TO LEVEL-SPECIFIC MONOBEHAVIOUR 
 
 
     // Start is called before the first frame update
@@ -61,6 +62,7 @@ public class InputController : MonoBehaviour
         Ray r = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(r, out hit, 100f, LayerMask.GetMask(new string[] {"Level"}))) {
+            hovering_tile = hit.transform.gameObject;
             target.transform.position = hit.transform.position;
             Target.Dir dir = Target.GetDir(hit.normal.normalized);
             target.Direction = dir;

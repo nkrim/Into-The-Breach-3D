@@ -36,6 +36,19 @@ public class Arc : MonoBehaviour
         Vector3 pivoted = _pivot_quat*(new Vector3(0, y, x));
         return pivoted + positionA;
     }
+    public Vector3 SlopeAtT(float time) {
+        float x = _initial_velocity * Mathf.Cos(_rad);
+        float y = _initial_velocity * Mathf.Sin(_rad) + Physics.gravity.y * time;
+        Vector3 pivoted = _pivot_quat*(new Vector3(0, y, x));
+        return pivoted;
+    }
+
+    public Vector3 PosAtPercent(float percent) {
+        return PosAtT(percent*_time);
+    }
+    public Vector3 SlopeAtPercent(float percent) {
+        return SlopeAtT(percent*_time);
+    }
 
     public float TimeToLand(float? other_angle=null) {
         Vector3 BA = _posB - _posA;
@@ -134,5 +147,11 @@ public class Arc : MonoBehaviour
         }
         if(positions_changed)
             _pivot_quat = GetPivotQuat();
+
+        // If arcrenderer
+        ArcRenderer ar;
+        if((any_changed || positions_changed) && (ar = GetComponent<ArcRenderer>())) {
+            ar.GenerateMesh();
+        }
     }
 }
