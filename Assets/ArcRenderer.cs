@@ -179,6 +179,9 @@ public class ArcRenderer : MonoBehaviour
     }*/
 
     public void GenerateMesh() {
+        if(!arc)
+            return;
+
         List<Vector3> vertices = new List<Vector3>();
         List<Vector3> normals = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
@@ -198,7 +201,7 @@ public class ArcRenderer : MonoBehaviour
         mesh.SetIndices(indices, MeshTopology.Triangles, 0);
         mesh.SetUVs(0, uvs);
 
-        Material mat = mr.material;
+        Material mat = mr.sharedMaterial;
         mat.SetFloat("Vector1_580C16DC", length);
         mat.SetFloat("Vector1_C61FC416", arcThickness);
     }
