@@ -22,13 +22,13 @@ public class EditorGridSnap : MonoBehaviour
         }
         if (oldOffset != editorGrid.offset) {
             Vector3 cur_offset = editorGrid.offset;
-            Vector3Int temp_cell = editorGrid.LocalToCell(transform.position, oldOffset);
-            transform.position = editorGrid.CellToLocal(temp_cell, cur_offset);
+            Vector3Int temp_cell = editorGrid.LocalToCell(transform.localPosition, oldOffset);
+            transform.localPosition = editorGrid.CellToLocal(temp_cell, cur_offset);
             oldOffset = editorGrid.offset;
             transform.hasChanged = false;
         }
         else if (transform.hasChanged) {
-            transform.position = editorGrid.GetCellSnappedPosition(transform.position);
+            transform.localPosition = editorGrid.GetCellSnappedPosition(transform.localPosition);
             transform.hasChanged = false;
         }
     }

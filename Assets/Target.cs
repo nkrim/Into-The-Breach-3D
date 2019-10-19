@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class Target : MonoBehaviour
 {
+    // DIR ENUM
     public enum Dir { Up, Forward, Right, Down, Back, Left }
     public static Dir GetDir(Vector3 v) {
         v = v.normalized;
@@ -20,11 +20,13 @@ public class Target : MonoBehaviour
         else {
             return v.x > 0 ? Dir.Right : Dir.Left;
         }
-    } 
+    }
 
+    // Public Fields
     public float defaultTargetHeight = 0.1f;
     public Dir defaultDirection = Dir.Up;
 
+    // Public properties
     float _target_height;
     public float TargetHeight {
         get {
@@ -46,9 +48,18 @@ public class Target : MonoBehaviour
         }
     }
 
-    protected Transform targetTransform;
+    // Linking vars
+    SpriteRenderer sr;
+    Transform targetTransform;
 
+    // Readonly statics
     static readonly float base_height = 0.5f;
+
+    private void Awake () {
+        sr = GetComponentInChildren<SpriteRenderer>();
+        if(!sr)
+            Debug.LogWarning("Target: SpriteRenderer not found!");
+    }
 
     private void Start () {
         if(transform.childCount == 0)
@@ -77,5 +88,10 @@ public class Target : MonoBehaviour
             case Dir.Right: rot = Quaternion.Euler(0, 0, -90); break;
         }
         transform.rotation = rot;
+    }
+
+    public void SetColor(Color c, float alpha=-1) {
+        if(sr)
+            sr.color = alpha >= 0 ? new Color(c.r, c.g, c.b, alpha) : c;
     }
 }
