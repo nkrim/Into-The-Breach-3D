@@ -25,6 +25,8 @@ public class Target : MonoBehaviour
     // Public Fields
     public float defaultTargetHeight = 0.1f;
     public Dir defaultDirection = Dir.Up;
+    public int steps = 0;
+    public float creation_time;
 
     // Public properties
     float _target_height;
@@ -69,6 +71,9 @@ public class Target : MonoBehaviour
         _target_height = defaultTargetHeight;
         _direction = defaultDirection;
         SetTargetTransform();
+    }
+    private void Update () {
+        
     }
     private void OnValidate () {
         TargetHeight = defaultTargetHeight;

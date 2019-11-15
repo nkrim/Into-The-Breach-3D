@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - EditorGrid
+  - LevelController
+  - Selectable
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -18,8 +21,8 @@ TagManager:
   - 
   - CameraLit
   - Level
-  - 
-  - 
+  - Friendly
+  - Hostile
   - 
   - 
   - 

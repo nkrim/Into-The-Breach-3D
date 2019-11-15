@@ -182,19 +182,23 @@ public class ArcRenderer : MonoBehaviour
         if(!arc)
             return;
 
+        if (mesh == null) {
+            mesh = new Mesh();
+            mf.mesh = mesh;
+        }
+        else
+            mesh.Clear();
+
+        if(!arc.IsPossible()) {
+            return;
+        } 
+
         List<Vector3> vertices = new List<Vector3>();
         List<Vector3> normals = new List<Vector3>();
         List<Vector2> uvs = new List<Vector2>();
 
         float length = AddRings(vertices, normals, uvs);
         int[] indices = ConnectRings();
-
-        if(mesh == null) { 
-            mesh = new Mesh();
-            mf.mesh = mesh;
-        }
-        else
-            mesh.Clear();
 
         mesh.SetVertices(vertices);
         mesh.SetNormals(normals);

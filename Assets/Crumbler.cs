@@ -35,7 +35,7 @@ public class Crumbler : MonoBehaviour
                 crumbling = false;
                 dt = 1;
             }
-            smoke.transform.position = (toCrumble.position + 0.65f * Vector3.up) - Vector3.up*dt;
+            smoke.transform.position = toCrumble.position + 0.65f*Vector3.up - Vector3.up*dt;
         }
     }
 }

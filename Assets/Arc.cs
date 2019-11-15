@@ -29,6 +29,8 @@ public class Arc : MonoBehaviour
         ComputeBestAngles();
     }
 
+    public bool IsPossible() { return possible_shot; }
+
 
     public Vector3 PosAtT(float time) {
         float x = _initial_velocity * time * Mathf.Cos(_rad);
@@ -83,6 +85,7 @@ public class Arc : MonoBehaviour
         else {
             _rad = estimate_angle_low;
         }
+        print(_rad);
         _time = TimeToLand();
 
         possible_shot = true;
@@ -93,7 +96,7 @@ public class Arc : MonoBehaviour
         Quaternion q = new Quaternion();
         Vector3 posBA = (_posB - _posA);
         Vector3 dir = new Vector3(posBA.x, 0, posBA.z).normalized;
-        q.SetFromToRotation(Vector3.forward, dir);
+        q.SetLookRotation(dir, Vector3.up);
         return q;
     }
 
@@ -107,6 +110,10 @@ public class Arc : MonoBehaviour
                 Gizmos.DrawWireSphere(PosAtT(t), 0.1f);
             }
         }
+    }
+
+    public void UpdateArcAndRenderer() {
+        OnValidate();
     }
 
     private void OnValidate () {
